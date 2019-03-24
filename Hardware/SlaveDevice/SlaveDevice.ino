@@ -26,49 +26,36 @@ void loop() {
   temp = DHT.temperature;
   humid = DHT.humidity;
   comString = String(temp) + "," + String(humid);
-  //comString = comString + String(rtc.getDOWStr()) + String(rtc.getDateStr()) + String(rtc.getTimeStr());
   comString = comString + "," + rtc.getDOWStr() + "," + rtc.getDateStr() + "," + rtc.getTimeStr();
   comString = comString +'\0';
-//  Serial.print("Temperature = ");
-//  Serial.print(DHT.temperature);
-//  Serial.print(" *C \t");
-//  Serial.print("Humidity = ");
-//  Serial.print(DHT.humidity);
-//  Serial.println(" %");
-    Serial.println(comString);
-    //DisplayTime();
-    comString.toCharArray(comBuffer,comString.length());
+  Serial.println(comString);
+  //DisplayTime();
+  comString.toCharArray(comBuffer,comString.length());
     
   delay(3000);
 }
 
-// function that executes whenever data is received from master
-//void receiveEvent(int howMany) {
-//  while (0 < Wire.available()) {
-//    char c = Wire.read(); // receive byte as a character
-//    Serial.print(c);         // print the character
-//  }
-//  Serial.println();         // to newline
-//}
+/*
+//function that executes whenever data is received from master
+void receiveEvent(int howMany) {
+  while (0 < Wire.available()) {
+    char c = Wire.read(); // receive byte as a character
+    Serial.print(c);         // print the character
+  }
+  Serial.println();         // to newline
+}
+*/
 
 // function that executes whenever data is requested from master
 void requestEvent() {
-  //Wire.write("Hello NodeMCU");//send string on request
   Wire.write(comBuffer);
 }
 
 /*void DisplayTime(){
-  // Send Day-of-Week
-  Serial.print(rtc.getDOWStr());
+  Serial.print(rtc.getDOWStr());  // Send Day-of-Week
   Serial.print(" ");
-  
-  // Send date
-  Serial.print(rtc.getDateStr());
+  Serial.print(rtc.getDateStr()); // Send date
   Serial.print(" -- ");
-
-  // Send time
-  Serial.println(rtc.getTimeStr());
-  
-  // Wait one second before repeating :)
-  delay (1000);
+  Serial.println(rtc.getTimeStr()); // Send time
+  delay (1000); // Wait one second before repeating :)
 }*/
